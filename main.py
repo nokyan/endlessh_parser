@@ -38,7 +38,10 @@ def main(filename: str):
     print("parsing")
     for l in lines:
         if "CLOSE host=" in l:
-            result = parse_line(l)
+            try:
+                result = parse_line(l)
+            except AttributeError:
+                continue
             ip_batch.append(result[0].replace("::ffff:", "") + "/country")
             times.append(result[1])
             sent_bytes.append(result[2])
